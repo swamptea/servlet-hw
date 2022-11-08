@@ -1,13 +1,11 @@
 package ru.swamptea.service;
 
-import org.springframework.stereotype.Service;
 import ru.swamptea.exception.NotFoundException;
 import ru.swamptea.model.Post;
 import ru.swamptea.repository.PostRepository;
 
 import java.util.List;
 
-@Service
 public class PostService {
     private final PostRepository repository;
 

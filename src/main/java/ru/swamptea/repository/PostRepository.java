@@ -1,6 +1,5 @@
 package ru.swamptea.repository;
 
-import org.springframework.stereotype.Repository;
 import ru.swamptea.exception.NotFoundException;
 import ru.swamptea.model.Post;
 
@@ -11,7 +10,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-@Repository
 public class PostRepository {
 
     private final ConcurrentHashMap<Long, Post> posts = new ConcurrentHashMap<>();
