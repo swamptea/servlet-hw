@@ -1,6 +1,7 @@
 package ru.swamptea.servlet;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.swamptea.config.JavaConfig;
 import ru.swamptea.controller.PostController;
 import ru.swamptea.exception.NotFoundException;
 
@@ -17,9 +18,8 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var context = new AnnotationConfigApplicationContext("ru.swamptea");
-        controller = (PostController) context.getBean("postController");
-
+        final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
+        controller = context.getBean(PostController.class);
     }
 
     @Override
