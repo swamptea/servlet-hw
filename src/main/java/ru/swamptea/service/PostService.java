@@ -4,9 +4,7 @@ import ru.swamptea.exception.NotFoundException;
 import ru.swamptea.model.Post;
 import ru.swamptea.repository.PostRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class PostService {
     private final PostRepository repository;
