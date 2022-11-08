@@ -1,9 +1,8 @@
 package ru.swamptea.servlet;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.swamptea.controller.PostController;
 import ru.swamptea.exception.NotFoundException;
-import ru.swamptea.repository.PostRepository;
-import ru.swamptea.service.PostService;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +17,9 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-        final var repository = new PostRepository();
-        final var service = new PostService(repository);
-        controller = new PostController(service);
+        final var context = new AnnotationConfigApplicationContext("ru.swamptea");
+        controller = (PostController) context.getBean("postController");
+
     }
 
     @Override
@@ -38,7 +37,7 @@ public class MainServlet extends HttpServlet {
                 controller.save(req.getReader(), resp);
                 return;
             }
-            if(path.matches("/api/posts/\\d+")){
+            if (path.matches("/api/posts/\\d+")) {
                 final var id = Long.parseLong(path.substring(path.lastIndexOf("/") + 1));
                 if (method.equals(GET)) {
                     controller.getById(id, resp);
@@ -53,8 +52,7 @@ public class MainServlet extends HttpServlet {
         } catch (NotFoundException e) {
             e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
